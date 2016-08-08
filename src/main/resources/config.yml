@@ -1,0 +1,11 @@
+capsDetection: true
+capsPercentage: 20
+capsReplacement: true
+minCapsSize: 5
+stringReplacement: true
+mentions: true
+notificationSound: "BLOCK_ANVIL_BREAK"
+chatCooldown: true
+cooldownMillis: 1000
+stringList:
+  "!website": "http://your_website_here.com"

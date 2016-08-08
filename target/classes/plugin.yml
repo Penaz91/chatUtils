@@ -1,0 +1,11 @@
+name: ChatUtils
+main: smallutils.chatutils.main
+version: 0.0.1-SNAPSHOT
+
+commands:
+    chatutils:
+        description: Main chatutils command
+        aliases: [cu]
+        usage: /chatutils
+        permission: ChatUtils.use
+        permission-message: Sorry, but you don't have the permission to execute this command
