@@ -7,5 +7,6 @@ mentions: true
 notificationSound: "BLOCK_ANVIL_BREAK"
 chatCooldown: true
 cooldownMillis: 1000
+linesCleared: 120
 stringList:
   "!website": "http://your_website_here.com"

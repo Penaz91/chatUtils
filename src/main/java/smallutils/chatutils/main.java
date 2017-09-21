@@ -77,7 +77,7 @@ public class main extends JavaPlugin{
 					if (sender.hasPermission("chatUtils.cc")){
 						for (Player p: Bukkit.getOnlinePlayers()){
 							if (!p.hasPermission("chatutils.bypasscc")){
-								for (int i=0; i<120; i++){
+								for (int i=0; i<config.getInt("linesCleared"); i++){
 									p.sendMessage(" ");
 								}
 							}
