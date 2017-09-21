@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -83,6 +85,18 @@ public class main extends JavaPlugin{
 							}
 						}
 						Bukkit.getServer().broadcastMessage(defaultPrefix + "Chat has been cleared by " + sender.getName());
+						return true;
+					}else{
+						sender.sendMessage(defaultPrefix + defaultPermissionsMsg);
+						return true;
+					}
+				}
+				if (args[0].equalsIgnoreCase("kw")||args[0].equalsIgnoreCase("keywords")){
+					if (sender.hasPermission("chatUtils.keywords")){
+						sender.sendMessage(defaultPrefix + "These are the keywords available:");
+						for (Entry<String, String> item:replacers.entrySet()){
+							sender.sendMessage(ChatColor.GOLD + item.getKey()+" -> " + item.getValue());
+						}
 						return true;
 					}else{
 						sender.sendMessage(defaultPrefix + defaultPermissionsMsg);
