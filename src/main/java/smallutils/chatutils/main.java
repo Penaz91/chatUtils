@@ -54,6 +54,28 @@ public class main extends JavaPlugin{
 			chatCooldown = config.getInt("cooldownMillis");
 		}
 	}
+	
+	public boolean reloadConfigCommand(){
+		reloadConfig();
+		config = getConfig();
+		if (config.getBoolean("stringReplacement")){
+			ConfigurationSection sec = config.getConfigurationSection("stringList");
+			if (sec!=null){
+				replacers.clear();
+				for (String key: sec.getKeys(false)){
+					if (key != null){
+						replacers.put(key, config.getString("stringList."+key));
+					}
+				}
+			}
+			getLogger().info("[ChatUtils] Replacers enabled: " + replacers.size() + " keys found");
+		}
+		if (config.getBoolean("chatCooldown")){
+			chatCooldown = config.getInt("cooldownMillis");
+		}
+		return true;
+	}
+	
 	@Override
 	public void onDisable(){
 		HandlerList.unregisterAll();
@@ -75,6 +97,14 @@ public class main extends JavaPlugin{
 				sender.sendMessage(ChatColor.GOLD + "-------------------<->-------------------");
 				return true;
 			}else{
+				if (args[0].equalsIgnoreCase("reload")){
+					if (sender.hasPermission("chatutils.reload")){
+						reloadConfigCommand();
+					}else{
+						sender.sendMessage(defaultPrefix + defaultPermissionsMsg);
+					}
+					return true;
+				}
 				if (args[0].equalsIgnoreCase("cc")){
 					if (sender.hasPermission("chatUtils.cc")){
 						for (Player p: Bukkit.getOnlinePlayers()){
