@@ -1,5 +1,7 @@
 # chatUtils for Spigot 1.10
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/Penaz91/chatUtils.svg?branch=master)](https://travis-ci.org/Penaz91/chatUtils)
+
 chatUtils is a small plugin with the essentials to control chat flow.
 This plugin doesn't include muting features or channels, but just some things
 I personally felt could be useful in a decently-sized minecraft server.
@@ -9,6 +11,7 @@ I personally felt could be useful in a decently-sized minecraft server.
 - **/chatutils | /cu **: Shows the help screen
 - **/cu cc**: Clears chat.
 - **/cu ld**: Puts the chat in lockdown
+- **/cu kw | /cu keywords**: Show the available keywords
 - **@playername**: Typing this in chat makes <playername> hear a sound to let them
 know they have been mentioned or that someone needs their attention.
 - **!keyword:** Typing this, !keyword will be replaced according to the configuration,
