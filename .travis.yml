@@ -1,0 +1,10 @@
+language: java
+deploy:
+  provider: releases
+  api_key:
+    secure: Ap8eihFpBdrJJHtQRgG9UyYI5MFExrSZlwTYORYpGxdnCn/xRJICtvcEbw7xZrq2AYkzAkz3UKKCLvrS4E7M2saxDB4iwaHq1eJNT4Slr6J1bTQB3vjemxM8yJgQDb/4sbtcvzrx4XdKV0dksmAyu66aoeSFHRI7kH1hBv05ksWp2bRid/TyYzuS822WIRy3YzubsBTHoKMPTP/Zve5OihSie9bo8lpafknrsBKaWDoQpqmb8oE0wwU+2Uq1h7Qz0ltBsBSncAchzTv7QxOPkKQg6aQmn+P4b+QCUkriwMeGdX/LmvpjSshC/gCrYS+/RmSjh2U41jYDPE8Qs5J1GoXwSoVEEm6qwKcGuyQfS+k/iAa1zZ/0h+sh74Qli0qeXBbq0uFGucIYhR7jiJPsZ3wGB71MhsW9jPcgoW3t/8zlNERYPUQcnKAB8/Px8cienn1YjLMyFDolbuHqqvHJit1h7jNw7uEL2rROtfmND1aArBZqymHDwGeO7fWboPL8/+b9KtjIPi6/NAIuPbKfe7l7+azLt+Le3vwyTMgId1sZkR3+H9m0IZzmu+OXIdwzZriH3CHtHjBeVXpURfLTtFdOvyg8ujjAWJOT5zprMmMF3o71HNeZmPYD6TuG5eu5zuKirrwshqOtjOr0TFhpkPtZ90oII/FDpxH2neA83U0=
+  file: target/ChatUtils-0.0.2-SNAPSHOT.jar
+  on:
+    repo: Penaz91/chatUtils
+  skip_cleanup: true
+  name: 0.0.2 Build $(date +'%d/%m/%Y %R')
