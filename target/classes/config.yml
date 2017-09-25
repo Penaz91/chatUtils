@@ -8,5 +8,14 @@ notificationSound: "BLOCK_ANVIL_BREAK"
 chatCooldown: true
 cooldownMillis: 1000
 linesCleared: 120
+autoMessages: true
+autoMessagesDelay: 60
+messageList:
+  - "This is a test broadcast!"
+  - "This is another test broadcast!"
+  - "&6Oh look! A 3rd test broadcast!, With color!"
+divider: "&9---------<>---------"
+broadcastLabel: "&6[&4Broadcast&6] "
+randomizedBroadcasts: true
 stringList:
   "!website": "http://your_website_here.com"

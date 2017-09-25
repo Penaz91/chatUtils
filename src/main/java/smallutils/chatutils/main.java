@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,6 +17,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 public class main extends JavaPlugin{
 	public static boolean LockDown = false;
@@ -27,16 +29,16 @@ public class main extends JavaPlugin{
 	public static String defaultPrefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "ChatUtils" + ChatColor.GOLD + "] ";
 	public static String defaultPermissionsMsg = "You don't have permission to use this feature";
 	public static List<String> patterns = new ArrayList<String>();
-	@Override
-	public void onEnable(){
-		File f = getDataFolder();
-		if (!f.exists()){
-			f.mkdir();
-			saveResource("config.yml", false);
-		}
-		getServer().getPluginManager().registerEvents(new ChatListener(), this);
-		getServer().getPluginManager().registerEvents(new PlayerLoginListener(), this);
-		getServer().getPluginManager().registerEvents(new PlayerLogoutListener(), this);
+	public static List<String> broadcasts = null;
+	public static long broadcastDelay = 0;
+	public static String divider = null;
+	public static BukkitTask broadcastTask = null;
+	public static boolean randomizedBroadcasts = false;
+	public static String broadcastLabel = null;
+	public static Random rng = new Random();
+	public static int index = -1;
+	
+	public boolean prepareConfiguration(){
 		config = this.getConfig();
 		if (config.getBoolean("stringReplacement")){
 			ConfigurationSection sec = config.getConfigurationSection("stringList");
@@ -53,32 +55,61 @@ public class main extends JavaPlugin{
 		if (config.getBoolean("chatCooldown")){
 			chatCooldown = config.getInt("cooldownMillis");
 		}
-	}
-	
-	public boolean reloadConfigCommand(){
-		reloadConfig();
-		config = getConfig();
-		if (config.getBoolean("stringReplacement")){
-			ConfigurationSection sec = config.getConfigurationSection("stringList");
-			if (sec!=null){
-				replacers.clear();
-				for (String key: sec.getKeys(false)){
-					if (key != null){
-						replacers.put(key, config.getString("stringList."+key));
+		if (config.getBoolean("autoMessages")){
+			broadcasts = config.getStringList("messageList");
+			divider = colorize(config.getString("divider"));
+			randomizedBroadcasts = config.getBoolean("randomizedBroadcasts");
+			broadcastLabel = colorize(config.getString("broadcastLabel"));
+			broadcastDelay = config.getLong("autoMessagesDelay");
+			broadcastTask=Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable(){
+				public void run(){
+					if (randomizedBroadcasts){
+						index = rng.nextInt(broadcasts.size());
+					}else{
+						if (index < broadcasts.size()-1){
+							index++;
+						}else{
+							index=0;
+						}
+					}
+					if (!divider.equals("")){
+						getServer().broadcastMessage(divider);
+					}
+					getServer().broadcastMessage(broadcastLabel + colorize(broadcasts.get(index)));
+					if (!divider.equals("")){
+						getServer().broadcastMessage(divider);
 					}
 				}
-			}
-			getLogger().info("[ChatUtils] Replacers enabled: " + replacers.size() + " keys found");
-		}
-		if (config.getBoolean("chatCooldown")){
-			chatCooldown = config.getInt("cooldownMillis");
+			}, 20*broadcastDelay, 20*broadcastDelay);
 		}
 		return true;
 	}
 	
 	@Override
+	public void onEnable(){
+		File f = getDataFolder();
+		if (!f.exists()){
+			f.mkdir();
+			saveResource("config.yml", false);
+		}
+		getServer().getPluginManager().registerEvents(new ChatListener(), this);
+		getServer().getPluginManager().registerEvents(new PlayerLoginListener(), this);
+		getServer().getPluginManager().registerEvents(new PlayerLogoutListener(), this);
+		prepareConfiguration();
+	}
+	
+	public boolean reloadConfigCommand(){
+		reloadConfig();
+		broadcastTask.cancel();
+		return prepareConfiguration();
+	}
+	
+	@Override
 	public void onDisable(){
+		getLogger().info("Disabling ChatUtils");
 		HandlerList.unregisterAll();
+		broadcastTask.cancel();
+		getLogger().info("ChatUtils Disabled");
 	}
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
@@ -151,5 +182,34 @@ public class main extends JavaPlugin{
 			}
 		}
 		return false;
+	}
+	
+	private static String colorize(String phrase) {
+		/*
+		 * Simple method to replace the & color codes with the respective colors.
+		 */
+		phrase = phrase.replaceAll("&0", ChatColor.BLACK + "");
+		phrase = phrase.replaceAll("&1", ChatColor.DARK_BLUE + "");
+		phrase = phrase.replaceAll("&2", ChatColor.DARK_GREEN + "");
+		phrase = phrase.replaceAll("&3", ChatColor.DARK_AQUA + "");
+		phrase = phrase.replaceAll("&4", ChatColor.DARK_RED + "");
+		phrase = phrase.replaceAll("&5", ChatColor.DARK_PURPLE + "");
+		phrase = phrase.replaceAll("&6", ChatColor.GOLD + "");
+		phrase = phrase.replaceAll("&7", ChatColor.GRAY + "");
+		phrase = phrase.replaceAll("&8", ChatColor.DARK_GRAY+ "");
+		phrase = phrase.replaceAll("&9", ChatColor.BLUE + "");
+		phrase = phrase.replaceAll("&a", ChatColor.GREEN + "");
+		phrase = phrase.replaceAll("&b", ChatColor.AQUA + "");
+		phrase = phrase.replaceAll("&c", ChatColor.RED + "");
+		phrase = phrase.replaceAll("&d", ChatColor.LIGHT_PURPLE + "");
+		phrase = phrase.replaceAll("&e", ChatColor.YELLOW + "");
+		phrase = phrase.replaceAll("&f", ChatColor.WHITE + "");
+		phrase = phrase.replaceAll("&k", ChatColor.MAGIC + "");
+		phrase = phrase.replaceAll("&l", ChatColor.BOLD + "");
+		phrase = phrase.replaceAll("&o", ChatColor.ITALIC + "");
+		phrase = phrase.replaceAll("&n", ChatColor.UNDERLINE + "");
+		phrase = phrase.replaceAll("&m", ChatColor.STRIKETHROUGH + "");
+		phrase = phrase.replaceAll("&r", ChatColor.RESET + "");
+		return phrase;
 	}
 }
