@@ -1,6 +1,6 @@
 # chatUtils for Spigot 1.12
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/Penaz91/chatUtils.svg?branch=master)](https://travis-ci.org/Penaz91/chatUtils)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/Penaz91/chatUtils.svg?branch=master)](https://travis-ci.org/Penaz91/chatUtils) ![Status:Active](https://img.shields.io/badge/Project_Status-Active-brightgreen.svg)
 
 chatUtils is a small plugin with the essentials to control chat flow.
 This plugin doesn't include muting features or channels, but just some things
