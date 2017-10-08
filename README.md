@@ -1,6 +1,6 @@
-# chatUtils for Spigot 1.10
+# chatUtils for Spigot 1.12
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/Penaz91/chatUtils.svg?branch=master)](https://travis-ci.org/Penaz91/chatUtils)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/Penaz91/chatUtils.svg?branch=master)](https://travis-ci.org/Penaz91/chatUtils) ![Status:Active](https://img.shields.io/badge/Project_Status-Active-brightgreen.svg)
 
 chatUtils is a small plugin with the essentials to control chat flow.
 This plugin doesn't include muting features or channels, but just some things
@@ -8,13 +8,13 @@ I personally felt could be useful in a decently-sized minecraft server.
 
 ### Commands
 
-- **/chatutils | /cu **: Shows the help screen
+- **/chatutils | /cu**: Shows the help screen
 - **/cu cc**: Clears chat.
 - **/cu ld**: Puts the chat in lockdown
 - **/cu kw | /cu keywords**: Show the available keywords
 - **@playername**: Typing this in chat makes <playername> hear a sound to let them
 know they have been mentioned or that someone needs their attention.
-- **!keyword:** Typing this, !keyword will be replaced according to the configuration,
+- **!keyword**: Typing this, !keyword will be replaced according to the configuration,
  for instance !website could be replaced with the server website URL.
 
 ### Other features
@@ -23,6 +23,7 @@ know they have been mentioned or that someone needs their attention.
 that go over a certain amount of capital letters.
 - **Chat Cooldown**: This will avoid spambots to make chat impossible to read, by
 putting a cooldown on all messages.
+- **Automatic timed broadcasts**: This will allow you to send messages automatically in chat, for example to inform players of some server features
 
 ### Permissions
 
