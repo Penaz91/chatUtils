@@ -100,7 +100,9 @@ public class main extends JavaPlugin{
 	
 	public boolean reloadConfigCommand(){
 		reloadConfig();
-		broadcastTask.cancel();
+		if (broadcastTask!=null){
+			broadcastTask.cancel();
+		}
 		return prepareConfiguration();
 	}
 	
@@ -130,7 +132,11 @@ public class main extends JavaPlugin{
 			}else{
 				if (args[0].equalsIgnoreCase("reload")){
 					if (sender.hasPermission("chatutils.reload")){
-						reloadConfigCommand();
+						if (reloadConfigCommand()){
+							sender.sendMessage(defaultPrefix + "Configuration reloaded");
+						}else{
+							sender.sendMessage(defaultPrefix + "Failed to reload configuration, check console for possible exceptions");
+						}
 					}else{
 						sender.sendMessage(defaultPrefix + defaultPermissionsMsg);
 					}
